@@ -38,17 +38,19 @@ class logInVCfirebase: UIViewController, UITextFieldDelegate{
         guard let email = email.text, let password = password.text
             else {return}
         
-        
+        print("11111")
         Auth.auth().signIn(withEmail: email, password: password) { [weak self](user, error) in
             if let error = error{
                 self?.alert(message: error.localizedDescription)
                 return
             }
-            
+            print("22222")
             if let user = Auth.auth().currentUser {
-
+                    print("33333")
+                print(user)
                 UserService.show(forUID: user.uid) { (user) in
-                    
+                    print("44444")
+                    print(user)
                     if let user = user {
                         User.setCurrent(user)
                         
@@ -58,7 +60,10 @@ class logInVCfirebase: UIViewController, UITextFieldDelegate{
                             self?.view.window?.rootViewController = initialViewController
                             self?.view.window?.makeKeyAndVisible()
                         }
+                    }else{
+                        print("55555")
                     }
+                        print("66666")
                 }
             }
         }

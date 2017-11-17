@@ -47,7 +47,7 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
                 return
             }
             
-            Database.database().reference().child("User").child(user!.uid).updateChildValues(["email": email, "name": fullname])
+            Database.database().reference().child("User").child(user!.uid).updateChildValues(["email": email, "name": fullname, "follower_count": 0, "following_count" : 0, "post_count" : 0])
 
             let changeRequest = user!.createProfileChangeRequest()
             changeRequest.displayName = fullname

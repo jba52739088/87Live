@@ -29,7 +29,7 @@ class adVC: UIViewController {
         self.counterView.layer.borderWidth = 1
         self.counterView.layer.borderColor = UIColor.white.cgColor
         self.counterBtn.setTitle("skip", for: .normal)
-        self.counterLabel.text = "6"
+        self.counterLabel.text = "5"
         self.counterLabel.textColor = UIColor.red
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }

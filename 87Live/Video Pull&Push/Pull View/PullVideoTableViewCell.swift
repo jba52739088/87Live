@@ -14,6 +14,7 @@ import JTNumberScrollAnimatedView
 class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     
+    @IBOutlet weak var viewForText: UIView!
     
     @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     @IBOutlet weak var textView: UITextView!
@@ -89,6 +90,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.setIJKPlayer()
         self.initChatField()
         textField.delegate = self
+        textView.delegate = self as? UITextViewDelegate
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PullVideoTableViewCell.dismissKeyboard))
         self.addGestureRecognizer(tap)
         
@@ -104,6 +106,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func initChatField(){
+//        viewForText.frame = CGRect(x: 0, y: self.frame.maxY * 0.6, width: self.frame.width, height: self.frame.height * 0.4)
         textField.isHidden = !textField.isHidden
         btnPush.isHidden = !btnPush.isHidden
         textView.text = ""
@@ -111,7 +114,9 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     @IBAction func doPush(_ sender: UIButton) {
+        if textField.text != ""{
         sendMessage(msg: textField.text!)
+        }
         textField.text = ""
         textField.endEditing(true)
     }
@@ -164,7 +169,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     
     @IBAction func doChat(_ sender: Any) {
-        
+        print("initBtnPosition in doChat")
         initBtnPosition()
         textField.becomeFirstResponder()
 
@@ -184,6 +189,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     
 
     func initBtnPosition (){
+        print("initBtnPosition self")
         stackViewForBtn.isHidden = !stackViewForBtn.isHidden
         textField.isHidden = !textField.isHidden
         btnPush.isHidden = !btnPush.isHidden
@@ -200,6 +206,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     // Finish Editing The Text Field
     func textFieldDidEndEditing(_ textField: UITextField) {
+        print("initBtnPosition in textFieldDidEndEditing")
         moveTextField(textField, moveDistance: -250, up: false)
         initBtnPosition()
     }
@@ -217,9 +224,19 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
         UIView.beginAnimations("animateTextField", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(moveDuration)
-        self.textField.frame = self.textField.frame.offsetBy(dx: 0, dy: movement)
-        self.btnPush.frame = self.btnPush.frame.offsetBy(dx: 0, dy: movement)
-        self.textView.frame = self.textView.frame.offsetBy(dx: 0, dy: movement)
+//        self.textField.frame = self.textField.frame.offsetBy(dx: 0, dy: movement)
+//        self.btnPush.frame = self.btnPush.frame.offsetBy(dx: 0, dy: movement)
+//        self.textView.frame = self.textView.frame.offsetBy(dx: 0, dy: movement)
+        self.frame = self.frame.offsetBy(dx: 0, dy: movement)
+        self.player.view.frame = self.player.view.frame.offsetBy(dx: 0, dy: -movement)
+//        self.btnClose.frame = self.btnClose.frame.offsetBy(dx: 0, dy: -movement)
+//        self.userImage.frame = self.userImage.frame.offsetBy(dx: 0, dy: -movement)
+//        self.viewersLabel.frame = self.viewersLabel.frame.offsetBy(dx: 0, dy: -movement)
+//        self.followBtn.frame = self.followBtn.frame.offsetBy(dx: 0, dy: -movement)
+//        self.userEarnBtn.frame = self.userEarnBtn.frame.offsetBy(dx: 0, dy: -movement)
+//        self.userNameLabel.frame = self.userNameLabel.frame.offsetBy(dx: 0, dy: -movement)
+//        self.viewersNum.frame = self.viewersNum.frame.offsetBy(dx: 0, dy: -movement)
+//        self.viewForText.frame = self.viewForText.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
 
     }
@@ -333,7 +350,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
         let msgSender = (msgs["p"]) as! String?
         if let msgs = msg {
             let msgsLast = tempChatArray.last
-            if msgs != msgsLast {
+//            if msgs != msgsLast {
                 let chatValue = msgs
                 if chatValue != "" {
                     tempChatArray.append(msgs)
@@ -345,7 +362,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
                     let bottomOffset = CGPoint(x: 0, y: (textView.contentSize.height - textView.bounds.size.height))
                     textView.setContentOffset(bottomOffset, animated: true)
                 }
-            }
+//            }
         }
     }
     

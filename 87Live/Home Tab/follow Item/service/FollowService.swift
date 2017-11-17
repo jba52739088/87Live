@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 struct FollowService {
    
+    
     private static func followUser(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
         let currentUID = User.current.uid
         let followData = ["followers/\(user.uid)/\(currentUID)" : true,
@@ -24,31 +25,73 @@ struct FollowService {
             }
             
             // 1
+            let dispatchGroup = DispatchGroup()
+            
+            // 2
+            dispatchGroup.enter()
+            
+            // 3
+            let followingCountRef = Database.database().reference().child("User").child(currentUID).child("following_count")
+            followingCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                // 4
+                let currentCount = mutableData.value as? Int ?? 0
+                mutableData.value = currentCount + 1
+                
+                return TransactionResult.success(withValue: mutableData)
+            }, andCompletionBlock: { (error, _, _) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                }
+                
+                dispatchGroup.leave()
+            })
+            
+            // 5
+            dispatchGroup.enter()
+            let followerCountRef = Database.database().reference().child("User").child(user.uid).child("follower_count")
+            followerCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                let currentCount = mutableData.value as? Int ?? 0
+                mutableData.value = currentCount + 1
+                
+                return TransactionResult.success(withValue: mutableData)
+            }, andCompletionBlock: { (error, _, _) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                }
+                
+                dispatchGroup.leave()
+            })
+            
+            // 6
+            dispatchGroup.enter()
             UserService.posts(for: user) { (posts) in
-                // 2
                 let postKeys = posts.flatMap { $0.key }
                 
-                // 3
                 var followData = [String : Any]()
                 let timelinePostDict = ["poster_uid" : user.uid]
                 postKeys.forEach { followData["timeline/\(currentUID)/\($0)"] = timelinePostDict }
                 
-                // 4
                 ref.updateChildValues(followData, withCompletionBlock: { (error, ref) in
                     if let error = error {
                         assertionFailure(error.localizedDescription)
                     }
                     
-                    // 5
-                    success(error == nil)
+                    dispatchGroup.leave()
                 })
+            }
+            
+            // 7
+            dispatchGroup.notify(queue: .main) {
+                success(true)
             }
         }
     }
     
+
     private static func unfollowUser(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
         let currentUID = User.current.uid
         // Use NSNull() object instead of nil because updateChildValues expects type [Hashable : Any]
+        // http://stackoverflow.com/questions/38462074/using-updatechildvalues-to-delete-from-firebase
         let followData = ["followers/\(user.uid)/\(currentUID)" : NSNull(),
                           "following/\(currentUID)/\(user.uid)" : NSNull()]
         
@@ -59,6 +102,39 @@ struct FollowService {
                 return success(false)
             }
             
+            let dispatchGroup = DispatchGroup()
+            
+            dispatchGroup.enter()
+            let followingCountRef = Database.database().reference().child("User").child(currentUID).child("following_count")
+            followingCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                let currentCount = mutableData.value as? Int ?? 0
+                mutableData.value = currentCount - 1
+                
+                return TransactionResult.success(withValue: mutableData)
+            }, andCompletionBlock: { (error, _, _) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                }
+                
+                dispatchGroup.leave()
+            })
+            
+            dispatchGroup.enter()
+            let followerCountRef = Database.database().reference().child("User").child(user.uid).child("follower_count")
+            followerCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                let currentCount = mutableData.value as? Int ?? 0
+                mutableData.value = currentCount - 1
+                
+                return TransactionResult.success(withValue: mutableData)
+            }, andCompletionBlock: { (error, _, _) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                }
+                
+                dispatchGroup.leave()
+            })
+            
+            dispatchGroup.enter()
             UserService.posts(for: user, completion: { (posts) in
                 var unfollowData = [String : Any]()
                 let postsKeys = posts.flatMap { $0.key }
@@ -72,9 +148,13 @@ struct FollowService {
                         assertionFailure(error.localizedDescription)
                     }
                     
-                    success(error == nil)
+                    dispatchGroup.leave()
                 })
             })
+            
+            dispatchGroup.notify(queue: .main) {
+                success(true)
+            }
         }
     }
     

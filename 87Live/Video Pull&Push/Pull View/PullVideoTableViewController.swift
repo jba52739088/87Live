@@ -12,7 +12,7 @@ import JTNumberScrollAnimatedView
 import AudioToolbox
 import MediaPlayer
 
-class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIScrollViewDelegate {
+class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     
     var rtmpSid = ""
@@ -262,6 +262,7 @@ class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         cell.childView.isHidden = true
+        cell.viewForText.frame = CGRect(x: 0, y: self.tableView.frame.maxY * 0.6, width: self.tableView.frame.width, height: self.tableView.frame.height * 0.4)
     }
     
 
