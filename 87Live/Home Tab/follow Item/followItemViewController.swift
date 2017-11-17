@@ -57,7 +57,7 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
         
             let dataDic = fakeTimeLine.fakeUser2Dic as NSDictionary
             let timeline = dataDic["userTimeLine"] as! NSArray
-            let messages = timeline[4 - indexPath.section] as! NSDictionary
+            let messages = timeline[0] as! NSDictionary
             
             switch indexPath.row {
                 

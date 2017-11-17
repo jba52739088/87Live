@@ -26,6 +26,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         delegate = self
         tabBar.unselectedItemTintColor = UIColor.black
         
+        
+        let adVC = self.storyboard?.instantiateViewController(withIdentifier: "adVC") as! adVC
+        adVC.view.frame = self.view.frame
+        self.addChildViewController(adVC)
+        self.view.addSubview(adVC.view)
+        adVC.didMove(toParentViewController: self)
 
     }
     

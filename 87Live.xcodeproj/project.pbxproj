@@ -100,6 +100,7 @@
 		FCB47F151FB6FF13006F1B53 /* SendingStatusCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC3500581FB6D5D7005D5B0A /* SendingStatusCollectionViewCell.xib */; };
 		FCBBB6EA1FB8AE9C0057284C /* giftTab01Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBBB6E91FB8AE9C0057284C /* giftTab01Cell.swift */; };
 		FCCFEEE81FAA36C1006C899D /* barBtnPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCFEEE71FAA36C1006C899D /* barBtnPopUpVC.swift */; };
+		FCD067EE1FBEE86F005466EE /* adVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD067ED1FBEE86F005466EE /* adVC.swift */; };
 		FCDDB95F1FA021C6003FA4DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCDDB95E1FA021C6003FA4DE /* Security.framework */; };
 		FCDDB9611FA021CD003FA4DE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCDDB9601FA021CD003FA4DE /* CFNetwork.framework */; };
 		FCDDB9641FA0C33C003FA4DE /* timelineCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDDB9631FA0C33C003FA4DE /* timelineCommentVC.swift */; };
@@ -248,6 +249,7 @@
 		FCB1C9351F967B1A00C93938 /* MessageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemViewController.swift; sourceTree = "<group>"; };
 		FCBBB6E91FB8AE9C0057284C /* giftTab01Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = giftTab01Cell.swift; sourceTree = "<group>"; };
 		FCCFEEE71FAA36C1006C899D /* barBtnPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = barBtnPopUpVC.swift; sourceTree = "<group>"; };
+		FCD067ED1FBEE86F005466EE /* adVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adVC.swift; sourceTree = "<group>"; };
 		FCDDB95E1FA021C6003FA4DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FCDDB9601FA021CD003FA4DE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FCDDB9631FA0C33C003FA4DE /* timelineCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timelineCommentVC.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				FCF567921F973B910028EF08 /* CHAT BUBBLE */,
 				FC956B5A1FAAA9550005CF32 /* Helper */,
 				FC6AE3FA1FA1A8D300A5DD7E /* signOutVC.swift */,
+				FCD067ED1FBEE86F005466EE /* adVC.swift */,
 				FC43F9131FB54BF10013F680 /* logInVC.swift */,
 				FC43F90B1FB5473A0013F680 /* useFirebase */,
 			);
@@ -972,6 +975,7 @@
 				FC43F9141FB54BF10013F680 /* logInVC.swift in Sources */,
 				FCCFEEE81FAA36C1006C899D /* barBtnPopUpVC.swift in Sources */,
 				FC7CCEDF1F9D8F980080C5A5 /* userTimelineCell.swift in Sources */,
+				FCD067EE1FBEE86F005466EE /* adVC.swift in Sources */,
 				FC1BF3301FAB28290082F56A /* addBtnCell.swift in Sources */,
 				FCA484B21FB8309100DFC77E /* ProfileViewController.swift in Sources */,
 				FCF567E01F97B4000028EF08 /* PullVideoTableViewCell.swift in Sources */,
@@ -1120,7 +1124,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Pods",
 				);
-				INFOPLIST_FILE = /Users/HuangEnYu/Documents/LearnIOS/MyBroadcastApp_new/87Live/Info.plist;
+				INFOPLIST_FILE = /Users/HuangEnYu/Documents/LearnIOS/87Live/87Live/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enyu.87Live;
@@ -1143,7 +1147,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Pods",
 				);
-				INFOPLIST_FILE = /Users/HuangEnYu/Documents/LearnIOS/MyBroadcastApp_new/87Live/Info.plist;
+				INFOPLIST_FILE = /Users/HuangEnYu/Documents/LearnIOS/87Live/87Live/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enyu.87Live;

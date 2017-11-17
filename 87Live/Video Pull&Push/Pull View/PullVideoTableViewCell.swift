@@ -92,7 +92,6 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PullVideoTableViewCell.dismissKeyboard))
         self.addGestureRecognizer(tap)
         
-        
 
     }
     
@@ -168,7 +167,7 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
         
         initBtnPosition()
         textField.becomeFirstResponder()
-//                initBtnPosition()
+
     }
     @IBAction func doShare(_ sender: Any) {
     }
@@ -184,18 +183,19 @@ class PullVideoTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
 
-    
     func initBtnPosition (){
         stackViewForBtn.isHidden = !stackViewForBtn.isHidden
         textField.isHidden = !textField.isHidden
         btnPush.isHidden = !btnPush.isHidden
     }
     
+    
     /////////////////////////////////
     // Start Editing The Text Field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -250, up: true)
 //        initBtnPosition()
+        moveTextField(textField, moveDistance: -250, up: true)
+        
     }
     
     // Finish Editing The Text Field
