@@ -16,6 +16,12 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var fullname: UITextField!
     @IBOutlet weak var singUpBtn: UIButton!
+    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var btnChoosePhoto: UIButton!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let photoHelper = MGPhotoHelper()
+    var completionHandler: ((UIImage) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,9 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
         self.email.delegate = self
         self.fullname.delegate = self
         self.password.delegate = self
+        photoHelper.completionHandler = { image in
+            self.userPhoto.image = image
+        }
         
         let backButton = UIBarButtonItem(title: "Log In", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
         navigationItem.leftBarButtonItem = backButton
@@ -40,14 +49,16 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
         
         guard let email = email.text, let password = password.text, let fullname = fullname.text
             else{return}
+       
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self](user, error) in
             if let error = error{
                 self?.alert(message: error.localizedDescription)
                 return
             }
+            sleep(20)
             
-            Database.database().reference().child("User").child(user!.uid).updateChildValues(["email": email, "name": fullname, "follower_count": 0, "following_count" : 0, "post_count" : 0])
+            Database.database().reference().child("User").child(user!.uid).updateChildValues(["email": email, "name": fullname, "follower_count": 0, "following_count" : 0, "post_count" : 0, "userPhoto": ""])
 
             let changeRequest = user!.createProfileChangeRequest()
             changeRequest.displayName = fullname
@@ -61,6 +72,7 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
                         User.setCurrent(user)
                         
                         print("new user, \(user.username).")
+                        PostService.createUserPhoto(for: (self?.userPhoto.image!)!, userMessage: "\(fullname) 加入了87")
                         let storyboard = UIStoryboard(name: "Firebase", bundle: .main)
                         if let initialViewController = storyboard.instantiateInitialViewController() {
                             self?.view.window?.rootViewController = initialViewController
@@ -101,10 +113,13 @@ class signOutVCfirebase: UIViewController, UITextFieldDelegate, UIGestureRecogni
         UIView.beginAnimations("animateTextField", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(moveDuration)
-        email.frame = email.frame.offsetBy(dx: 0, dy: movement)
-        password.frame = password.frame.offsetBy(dx: 0, dy: movement)
-        fullname.frame = fullname.frame.offsetBy(dx: 0, dy: movement)
-        singUpBtn.frame = singUpBtn.frame.offsetBy(dx: 0, dy: movement)
+//        email.frame = email.frame.offsetBy(dx: 0, dy: movement)
+//        password.frame = password.frame.offsetBy(dx: 0, dy: movement)
+//        fullname.frame = fullname.frame.offsetBy(dx: 0, dy: movement)
+//        singUpBtn.frame = singUpBtn.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
+    }
+    @IBAction func doChoose(_ sender: Any) {
+        photoHelper.presentActionSheet(from: self)
     }
 }

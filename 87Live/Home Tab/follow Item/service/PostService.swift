@@ -10,6 +10,8 @@ import UIKit
 import FirebaseStorage
 import FirebaseDatabase
 
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 struct PostService {
     static func create(for image: UIImage, userMessage: String) {
         let imageRef = StorageReference.newPostImageReference()
@@ -24,6 +26,31 @@ struct PostService {
             print("image url: \(urlString), userMessage: \(userMessage)")
         }
     }
+    /////
+    /////
+    
+    static func createUserPhoto(for image: UIImage, userMessage: String) {
+        let imageRef = StorageReference.newPostImageReference()
+        StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
+            guard let downloadURL = downloadURL else {
+                return
+            }
+            
+            let urlString = downloadURL.absoluteString
+            let aspectHeight = image.aspectHeight
+            create(forURLString: urlString, aspectHeight: aspectHeight, userMessage: userMessage)
+            print("image url: \(urlString), userMessage: \(userMessage)")
+            let currentUser = User.current
+            let values = ["userPhoto": urlString]
+            let ref = Database.database().reference().child("User").child(currentUser.uid).updateChildValues(values)
+            
+        }
+    }
+    
+    ////
+    ////
+    
+    
     
     private static func create(forURLString urlString: String, aspectHeight: CGFloat, userMessage: String) {
         let currentUser = User.current

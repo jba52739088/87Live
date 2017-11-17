@@ -29,7 +29,8 @@ struct UserService {
         let userAttrs: [String : Any] = ["name" : username,
                          "follower_count" : 0,
                          "following_count" : 0,
-                         "post_count" : 0]
+                         "post_count" : 0,
+                         "userPhoto" : ""]
 
         
         let ref = Database.database().reference().child("User").child(firUser.uid)

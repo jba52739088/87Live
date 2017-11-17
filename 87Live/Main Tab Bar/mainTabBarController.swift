@@ -12,7 +12,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     // MARK: - Properties
     
-//    let photoHelper = MGPhotoHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()

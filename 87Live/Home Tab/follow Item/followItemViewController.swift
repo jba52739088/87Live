@@ -14,6 +14,7 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
     
     @IBOutlet weak var tableView: UITableView!
     let refreshControl = UIRefreshControl()
+    var user: User!
     var posts = [Post]()
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -27,6 +28,7 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
         refreshControl.addTarget(self, action: #selector(reloadTimeline), for: .valueChanged)
         tableView.addSubview(refreshControl)
         reloadTimeline()
+        print(user?.userPhoto)
         
     }
     
@@ -67,6 +69,7 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
                 cell.timeLineImage.kf.setImage(with: imageURL)
                 cell.userNameLabel.text = post.poster.username
                 cell.timeLabel.text = timestampFormatter.string(from: post.creationDate)
+//                let userPhoto = user.userPhoto!
                 let userPhoto = dataDic["userImage"] as! NSString
                 cell.userPhoto.image = UIImage(named: "\(userPhoto)")
                 cell.selectionStyle = .none

@@ -101,6 +101,7 @@
 		FCBBB6EA1FB8AE9C0057284C /* giftTab01Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBBB6E91FB8AE9C0057284C /* giftTab01Cell.swift */; };
 		FCCFEEE81FAA36C1006C899D /* barBtnPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCFEEE71FAA36C1006C899D /* barBtnPopUpVC.swift */; };
 		FCD067EE1FBEE86F005466EE /* adVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD067ED1FBEE86F005466EE /* adVC.swift */; };
+		FCD067F01FBF5F59005466EE /* MGPhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD067EF1FBF5F59005466EE /* MGPhotoHelper.swift */; };
 		FCDDB95F1FA021C6003FA4DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCDDB95E1FA021C6003FA4DE /* Security.framework */; };
 		FCDDB9611FA021CD003FA4DE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCDDB9601FA021CD003FA4DE /* CFNetwork.framework */; };
 		FCDDB9641FA0C33C003FA4DE /* timelineCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDDB9631FA0C33C003FA4DE /* timelineCommentVC.swift */; };
@@ -250,6 +251,7 @@
 		FCBBB6E91FB8AE9C0057284C /* giftTab01Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = giftTab01Cell.swift; sourceTree = "<group>"; };
 		FCCFEEE71FAA36C1006C899D /* barBtnPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = barBtnPopUpVC.swift; sourceTree = "<group>"; };
 		FCD067ED1FBEE86F005466EE /* adVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adVC.swift; sourceTree = "<group>"; };
+		FCD067EF1FBF5F59005466EE /* MGPhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGPhotoHelper.swift; sourceTree = "<group>"; };
 		FCDDB95E1FA021C6003FA4DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FCDDB9601FA021CD003FA4DE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FCDDB9631FA0C33C003FA4DE /* timelineCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timelineCommentVC.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				FC3A362E1FB53E99008BBF02 /* logInVCfirebase.swift */,
 				FC5DE8571FB7388A00FF9B2C /* constants.swift */,
 				FC3A36301FB53EAF008BBF02 /* signOutVCfirebase.swift */,
+				FCD067EF1FBF5F59005466EE /* MGPhotoHelper.swift */,
 			);
 			path = useFirebase;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				FC1BF32E1FAB27AC0082F56A /* addBtnVC.swift in Sources */,
 				FCB1C9301F967ADB00C93938 /* messageItemPageViewController.swift in Sources */,
 				FC95A49B1F9DDAC400316814 /* infoFollowingVC.swift in Sources */,
+				FCD067F01FBF5F59005466EE /* MGPhotoHelper.swift in Sources */,
 				FC9C20C21FA01F6A007A3C9B /* SRWebSocket.m in Sources */,
 				FCF5678F1F973B770028EF08 /* chatBubble.swift in Sources */,
 				FC95A4991F9DDA6A00316814 /* infoTimeLineVC.swift in Sources */,
