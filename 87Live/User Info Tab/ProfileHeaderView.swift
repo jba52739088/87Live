@@ -23,7 +23,7 @@ class ProfileHeaderView: UICollectionReusableView {
     }
 
     func decorate() {
-        self.likerBtn.setTitle("0   ♥︎", for: .normal)
+        self.likerBtn.setTitle("23   ♥︎", for: .normal)
         self.likerBtn.layer.borderWidth = 2.0
         self.likerBtn.layer.cornerRadius = 8
         self.levelBtn.setTitle("9\nLevel", for: .normal)
@@ -33,6 +33,6 @@ class ProfileHeaderView: UICollectionReusableView {
         self.followingBtn.setTitle("6\nFollowing", for: .normal)
         self.followingBtn.titleLabel?.textAlignment = .center
         self.earnLabel.layer.borderWidth = 1.0
-        self.earnLabel.text = "Today's royalties 0.0000 USD"
+        self.earnLabel.text = "Today's royalties 13.0302 USD"
     }
 }

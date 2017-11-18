@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import Kingfisher
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
@@ -75,6 +76,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ProfileHeaderView", for: indexPath) as! ProfileHeaderView
+        
+        let userImg = URL(string: user.userPhoto)
+        headerView.userImage.kf.setImage(with: userImg)
+        headerView.userImage.setRounded()
+        
+        let userName = user.username
+        headerView.userNameLabel.text = userName
         
         let postCount = user.postCount ?? 0
         headerView.levelBtn.setTitle("\(postCount)\nLevel", for: .normal)

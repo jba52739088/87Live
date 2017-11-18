@@ -64,15 +64,17 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
             switch indexPath.row {
                 
             case 0:
-                print(post.poster.userPhoto)
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! timeLineImageCell
                 let imageURL = URL(string: post.imageURL)
                 cell.timeLineImage.kf.setImage(with: imageURL)
                 cell.userNameLabel.text = post.poster.username
                 cell.timeLabel.text = timestampFormatter.string(from: post.creationDate)
                 let userPhoto = URL(string: post.poster.userPhoto)
-//                let userPhoto = dataDic["userImage"] as! NSString
                 cell.userPhoto.kf.setImage(with: userPhoto)
+                cell.userPhoto.setRounded()
+                cell.userPhoto.layer.borderColor = UIColor.white.cgColor
+                cell.userPhoto.layer.borderWidth = 2
+                cell.userPhoto.contentMode = .scaleAspectFit
                 cell.selectionStyle = .none
                 cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
                 return cell
@@ -109,7 +111,10 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return (UIScreen.main.bounds.height * 2 / 3)
+//            return (UIScreen.main.bounds.height * 2 / 3)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! timeLineImageCell
+            let post = posts[indexPath.section]
+            return post.imageHeight + cell.userNameLabel.frame.height
         case 1:
             return UITableViewAutomaticDimension
         case 2:

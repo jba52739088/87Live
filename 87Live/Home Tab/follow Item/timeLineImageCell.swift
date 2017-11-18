@@ -16,10 +16,11 @@ class timeLineImageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        userPhoto.setRounded()
-        userPhoto.layer.borderColor = UIColor.white.cgColor
-        userPhoto.layer.borderWidth = 2
-        userPhoto.contentMode = .scaleAspectFit
+//        userPhoto.setRounded()
+//        userPhoto.layer.cornerRadius =  userPhoto.frame.height / 2
+//        userPhoto.layer.borderColor = UIColor.white.cgColor
+//        userPhoto.layer.borderWidth = 2
+//        userPhoto.contentMode = .scaleAspectFit
 //        timeLineImage.contentMode = .scaleAspectFit
     }
 

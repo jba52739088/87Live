@@ -19,8 +19,8 @@ class secondPullVC: UIViewController{
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var viewersNum: JTNumberScrollAnimatedView!
     @IBOutlet weak var viewersLabel: UILabel!
-    @IBOutlet weak var userEarnBtn: UIButton!
-    @IBOutlet weak var followBtn: UIButton!
+    @IBOutlet weak var userEarnBtn: UILabel!
+    @IBOutlet weak var followBtn: UILabel!
     
     @IBOutlet weak var stackViewForBtn: UIStackView!
     @IBOutlet weak var btnChat: UIButton!
@@ -34,10 +34,11 @@ class secondPullVC: UIViewController{
     
     override func viewDidLoad() {
         
-        userValue = fakeUser.fakeArray as! [Dictionary<String, Any>]
+        userValue = appDelegate.userValue
         self.decorate()
         super.viewDidLoad()
         self.setIJKPlayer()
+        self.giftHeart()
         
     }
     
@@ -123,16 +124,14 @@ class secondPullVC: UIViewController{
         self.userNameLabel.minimumScaleFactor = 0.1
         self.userNameLabel.adjustsFontSizeToFitWidth = true
         self.userNameLabel.lineBreakMode = .byClipping
-        self.userEarnBtn.titleLabel?.textAlignment = .center
-        self.userEarnBtn.titleLabel?.minimumScaleFactor = 0.1
-        self.userEarnBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        self.userEarnBtn.titleLabel?.lineBreakMode = .byClipping
-        self.userEarnBtn.titleLabel?.numberOfLines = 0
-        self.followBtn.titleLabel?.textAlignment = .center
-        self.followBtn.titleLabel?.minimumScaleFactor = 0.1
-        self.followBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        self.followBtn.titleLabel?.lineBreakMode = .byClipping
-        self.followBtn.titleLabel?.numberOfLines = 0
+        self.userEarnBtn.minimumScaleFactor = 0.1
+        self.userEarnBtn.adjustsFontSizeToFitWidth = true
+        self.userEarnBtn.lineBreakMode = .byClipping
+        self.userEarnBtn.baselineAdjustment = .alignCenters
+        self.followBtn.minimumScaleFactor = 0.1
+        self.followBtn.adjustsFontSizeToFitWidth = true
+        self.followBtn.lineBreakMode = .byClipping
+        self.followBtn.baselineAdjustment = .alignCenters
         
         self.viewersLabel.text = " viewers"
         self.userNameLabel.numberOfLines = 0
@@ -225,5 +224,83 @@ class secondPullVC: UIViewController{
                 })
             }
         }
+    }
+    
+    func giftHeart() {
+        let _ = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer1) in
+            let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer2) in
+                self.createBubble()
+            }
+            let _ = Timer.scheduledTimer(withTimeInterval: 1.1, repeats: true) { (timer2) in
+                self.createBubble()
+            }
+            let _ = Timer.scheduledTimer(withTimeInterval: 0.9, repeats: true) { (timer2) in
+                self.createBubble()
+            }
+        }
+    }
+    
+    
+    @objc func createBubble() {
+        
+        var imageNum = Int(arc4random_uniform(15) + 1)
+        
+        if imageNum > 4 {
+            imageNum = 1
+        }
+        let image = UIImage(named: "heart\(imageNum)")
+        let tempImage = image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let movingImage = UIImageView()
+        movingImage.image = tempImage
+        let colors = [UIColor.orange, UIColor.blue, UIColor.red, UIColor.cyan, UIColor.green, UIColor.white]
+        let colorNum = Int(arc4random_uniform(6))
+        movingImage.tintColor = colors[colorNum]
+        movingImage.alpha = 0.7
+        let x = self.btnGift.frame.origin.x
+        let y = self.btnGift.frame.origin.y
+        let size = CGFloat(arc4random_uniform(10))
+        movingImage.frame = CGRect(x: x, y: y, width: 5 + size, height: 5 + size)
+        self.view.addSubview(movingImage)
+        
+        let bubblePath = UIBezierPath()
+        
+        let oX = self.btnGift.frame.origin.x + self.btnGift.frame.width / 2
+        let oY = self.view.frame.size.height - self.btnGift.frame.origin.y - self.btnGift.frame.height / 2
+        let eX = oX
+        let eY = oY - self.view.frame.height * 3 / 4
+        let t:CGFloat = CGFloat(arc4random_uniform(30))
+        let bool = Int(arc4random_uniform(2))
+        var cp1 = CGPoint()
+        var cp2 = CGPoint()
+        if bool == 0{
+            cp1 = CGPoint(x: oX - t, y: ((oY + eY) / 2));
+            cp2 = CGPoint(x: oX + t, y: cp1.y)
+        }else{
+            cp1 = CGPoint(x: oX + t, y: ((oY + eY) / 2));
+            cp2 = CGPoint(x: oX - t, y: cp1.y)
+        }
+        
+        bubblePath.move(to: CGPoint(x: oX, y: oY))
+        bubblePath.addCurve(to: CGPoint(x: eX, y: eY), controlPoint1: cp1, controlPoint2: cp2)
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            // transform the image to be 1.3 sizes larger to
+            // give the impression that it is popping
+            UIView.transition(with: movingImage, duration: 0.1, options: .transitionCrossDissolve, animations: {
+                movingImage.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }, completion: { (finished : Bool) in
+                movingImage.removeFromSuperview()
+            })
+        }
+        
+        let pathAnimation = CAKeyframeAnimation(keyPath: "position")
+        pathAnimation.duration = 3
+        pathAnimation.path = bubblePath.cgPath
+        // remains visible in it's final state when animation is finished
+        // in conjunction with removedOnCompletion
+        pathAnimation.fillMode = kCAFillModeForwards
+        pathAnimation.isRemovedOnCompletion = false
+        movingImage.layer.add(pathAnimation, forKey: "movingAnimation")
     }
 }

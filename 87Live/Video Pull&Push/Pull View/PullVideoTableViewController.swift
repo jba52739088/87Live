@@ -14,7 +14,7 @@ import MediaPlayer
 
 class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var rtmpSid = ""
     var dicts:Array<NSDictionary> = []
     var gotPullUrl = ""
@@ -42,6 +42,7 @@ class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITab
             }
         }
         fakeUser.fakeArray = userValue
+        appDelegate.userValue = userValue
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -303,26 +304,26 @@ class PullVideoTableViewController: UIViewController, UITableViewDelegate, UITab
             cell.followBtn.layer.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.8).cgColor
             print("+ Follow")
         }
-//
-        let popOverVC = UIStoryboard(name: "Firebase", bundle: nil).instantiateViewController(withIdentifier: "secondPullVC") as! secondPullVC
-        self.addChildViewController(popOverVC)
-        if chindViewIsHidden{
-            popOverVC.url = NSURL(string: "rtmp://live.hkstv.hk.lxdns.com/live/hks")
-            let rate = (popOverVC.view.frame.size.height / popOverVC.view.frame.size.width)
-            popOverVC.view.frame.size.width = cell.childView.frame.width
-            popOverVC.view.frame.size.height = (popOverVC.view.frame.size.width * rate)
-            popOverVC.view.center = cell.childView.center
-            popOverVC.player.view.frame = popOverVC.view.frame
-            cell.addSubview(popOverVC.player.view)
-            cell.addSubview(popOverVC.view)
-            chindViewIsHidden = !chindViewIsHidden
-        }else{
-            cell.subviews.last?.removeFromSuperview()
-            cell.subviews.last?.removeFromSuperview()
-            self.childViewControllers.last?.removeFromParentViewController()
-            chindViewIsHidden = !chindViewIsHidden
-        }
-        popOverVC.didMove(toParentViewController: self)
+////
+//        let popOverVC = UIStoryboard(name: "Firebase", bundle: nil).instantiateViewController(withIdentifier: "secondPullVC") as! secondPullVC
+//        self.addChildViewController(popOverVC)
+//        if chindViewIsHidden{
+//            popOverVC.url = NSURL(string: "rtmp://live.hkstv.hk.lxdns.com/live/hks")
+//            let rate = (popOverVC.view.frame.size.height / popOverVC.view.frame.size.width)
+//            popOverVC.view.frame.size.width = cell.childView.frame.width
+//            popOverVC.view.frame.size.height = (popOverVC.view.frame.size.width * rate)
+//            popOverVC.view.center = cell.childView.center
+//            popOverVC.player.view.frame = popOverVC.view.frame
+//            cell.addSubview(popOverVC.player.view)
+//            cell.addSubview(popOverVC.view)
+//            chindViewIsHidden = !chindViewIsHidden
+//        }else{
+//            cell.subviews.last?.removeFromSuperview()
+//            cell.subviews.last?.removeFromSuperview()
+//            self.childViewControllers.last?.removeFromParentViewController()
+//            chindViewIsHidden = !chindViewIsHidden
+//        }
+//        popOverVC.didMove(toParentViewController: self)
     }
     
     

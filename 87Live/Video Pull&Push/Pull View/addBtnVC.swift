@@ -27,7 +27,7 @@ class addBtnVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        userValue = fakeUser.fakeArray as! [Dictionary<String, Any>]
+        userValue = appDelegate.userValue
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         showAnimate()
         self.doTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(quit)))
@@ -54,7 +54,7 @@ class addBtnVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("=====didselect=====")
 //        if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "pullPage") as? PullVideoTableViewController {
-            self.addSubview(controller: self.controller!, cell: self.cell!)
+            self.addSubview(controller: self.controller!, cell: self.cell!, indexPath.row)
             controller!.testfunc()
             print("OKOKOKOKOKOK")
             self.removeAnimate()
@@ -90,7 +90,7 @@ class addBtnVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func setCellInfo(_ cell: addBtnCell, _ indexPath: Int, _ IndexPath: IndexPath) {
         
         let value = userValue[indexPath] as NSDictionary
-        appDelegate.selectedNum = indexPath
+       
         
         let userName = value.object(forKey: "userName")
         let viewerCount = value.object(forKey: "userViewers")
@@ -101,19 +101,22 @@ class addBtnVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.userMessage.text = "I have \(viewerCount!) viewers"
         
     }
+    
     var subCell: PullVideoTableViewCell?
     var subController : PullVideoTableViewController?
+    var videoView = getUrl.videoView
     
-    func addSubview(controller: PullVideoTableViewController, cell: PullVideoTableViewCell) {
+    func addSubview(controller: PullVideoTableViewController, cell: PullVideoTableViewCell, _ indexPath: Int) {
         let popOverVC = UIStoryboard(name: "Firebase", bundle: nil).instantiateViewController(withIdentifier: "secondPullVC") as! secondPullVC
         subCell = cell
         subController = controller
+        appDelegate.selectedNum = indexPath
         controller.addChildViewController(popOverVC)
 
         
         if controller.chindViewIsHidden{
             
-            popOverVC.url = NSURL(string: "rtmp://live.hkstv.hk.lxdns.com/live/hks")
+            popOverVC.url = NSURL(string: videoView[indexPath])
             let rate = (popOverVC.view.frame.size.height / popOverVC.view.frame.size.width)
             popOverVC.view.frame.size.width = cell.childView.frame.width
             popOverVC.view.frame.size.height = (popOverVC.view.frame.size.width * rate)
@@ -133,7 +136,7 @@ class addBtnVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             controller.childViewControllers.last?.removeFromParentViewController()
             controller.chindViewIsHidden = !(controller.chindViewIsHidden)
-            addSubview(controller: controller, cell: cell)
+            addSubview(controller: controller, cell: cell, indexPath)
         }
         popOverVC.didMove(toParentViewController: controller)
         
