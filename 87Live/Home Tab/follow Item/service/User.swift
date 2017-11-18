@@ -16,17 +16,21 @@ class User: NSObject {
     
     let uid: String
     let username: String
+    
+    let userPhoto: String
+    
     var isFollowed = false
     
     var followerCount: Int?
     var followingCount: Int?
     var postCount: Int?
-    var userPhoto: String?
+    
     // MARK: - Init
     
-    init(uid: String, username: String) {
+    init(uid: String, username: String, userPhoto: String) {
         self.uid = uid
         self.username = username
+        self.userPhoto = userPhoto
         super.init()
     }
     
@@ -50,13 +54,15 @@ class User: NSObject {
     }
     required init?(coder aDecoder: NSCoder) {
         guard let uid = aDecoder.decodeObject(forKey: Constants.UserDefaults.uid) as? String,
-            let username = aDecoder.decodeObject(forKey: Constants.UserDefaults.username) as? String
+            let username = aDecoder.decodeObject(forKey: Constants.UserDefaults.username) as? String,
+            let userPhoto = aDecoder.decodeObject(forKey: Constants.UserDefaults.userPhoto) as? String
             else {
                 print("nil")
                 return nil }
         
         self.uid = uid
         self.username = username
+        self.userPhoto = userPhoto
         
         super.init()
     }
@@ -88,6 +94,8 @@ extension User: NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(uid, forKey: Constants.UserDefaults.uid)
         aCoder.encode(username, forKey: Constants.UserDefaults.username)
+        aCoder.encode(userPhoto, forKey: Constants.UserDefaults.userPhoto)
+        
     }
     
     

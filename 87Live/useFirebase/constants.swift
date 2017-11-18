@@ -17,6 +17,7 @@ struct Constants {
         static let currentUser = "currentUser"
         static let uid = "uid"
         static let username = "name"
+        static let userPhoto = "userPhoto"
         
     }
     

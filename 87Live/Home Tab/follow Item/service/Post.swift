@@ -25,20 +25,23 @@ class Post {
     let poster: User
     var isLiked = false
     
+    
 
     
     
     var dictValue: [String : Any] {
         let createdAgo = creationDate.timeIntervalSince1970
         let userDict = ["uid" : poster.uid,
-                        "name" : poster.username]
+                        "name" : poster.username,
+                        "userPhoto" : poster.userPhoto]
         
         return ["image_url" : imageURL,
                 "image_height" : imageHeight,
                 "created_at" : createdAgo,
                 "like_count" : likeCount,
                 "poster" : userDict,
-                "userMessage" : userMessage]
+                "userMessage" : userMessage
+                ]
     }
     
     init?(snapshot: DataSnapshot) {
@@ -53,6 +56,8 @@ class Post {
             let userDict = dict["poster"] as? [String : Any],
             let uid = userDict["uid"] as? String,
             let username = userDict["name"] as? String,
+            
+            let userPhoto = userDict["userPhoto"] as? String,
             /////
             let userMessage = dict["userMessage"] as? String
             /////
@@ -65,7 +70,7 @@ class Post {
         self.creationDate = Date(timeIntervalSince1970: createdAgo)
         
         self.likeCount = likeCount
-        self.poster = User(uid: uid, username: username)
+        self.poster = User(uid: uid, username: username, userPhoto: userPhoto)
         /////
         self.userMessage = userMessage
         /////

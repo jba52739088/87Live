@@ -64,14 +64,15 @@ class followItemViewController: UIViewController, IndicatorInfoProvider, UITable
             switch indexPath.row {
                 
             case 0:
+                print(post.poster.userPhoto)
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! timeLineImageCell
                 let imageURL = URL(string: post.imageURL)
                 cell.timeLineImage.kf.setImage(with: imageURL)
                 cell.userNameLabel.text = post.poster.username
                 cell.timeLabel.text = timestampFormatter.string(from: post.creationDate)
-//                let userPhoto = user.userPhoto!
-                let userPhoto = dataDic["userImage"] as! NSString
-                cell.userPhoto.image = UIImage(named: "\(userPhoto)")
+                let userPhoto = URL(string: post.poster.userPhoto)
+//                let userPhoto = dataDic["userImage"] as! NSString
+                cell.userPhoto.kf.setImage(with: userPhoto)
                 cell.selectionStyle = .none
                 cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
                 return cell
@@ -221,4 +222,7 @@ extension followItemViewController: PostActionCellDelegate {
     }
 
 }
+
+
+
 
